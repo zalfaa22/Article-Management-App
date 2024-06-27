@@ -1,74 +1,52 @@
 "use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const router = useRouter();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-
+  
     try {
       const response = await fetch(`${baseUrl}/api/auth/login`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ username, password }),
       });
-
+  
       if (!response.ok) {
-        throw new Error("Login failed");
+        throw new Error('Login failed');
       }
-
+  
       const data = await response.json();
-      console.log(data);
-
+      console.log(data)
+  
       if (!data || !data.access) {
-        throw new Error("Token not found in response");
+        throw new Error('Token not found in response');
       }
-
-      localStorage.setItem("token", data.access);
-
-      const profileResponse = await fetch(`${baseUrl}/api/auth/me`, {
-        headers: {
-          Authorization: `Bearer ${data.access}`,
-        },
-      });
-
-      if (!profileResponse.ok) {
-        throw new Error("Failed to fetch user profile");
-      }
-
-      const profileData = await profileResponse.json();
-      console.log(profileData);
-
-      if (profileData.role === "admin") {
-        router.push("/admin/users");
-      } else if (profileData.role === "owner") {
-        router.push("/owner/profile");
-      } else {
-        console.warn(
-          `Unknown role: ${profileData.role}. Redirecting to default page.`
-        );
-        router.push("/default");
-      }
+  
+      localStorage.setItem('token', data.access);
+  
+      router.push('/admin/users');
     } catch (error) {
-      console.error("Login failed:", error);
-      alert("Login failed. Please check your credentials.");
+      console.error('Login failed:', error);
+      alert('Login failed. Please check your credentials.');
     }
   };
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Log in to your account
-          </h2>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleLogin}>
           <input
@@ -91,7 +69,7 @@ export default function LoginPage() {
             type="submit"
             className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            Log In
+            Sign In
           </button>
         </form>
       </div>
