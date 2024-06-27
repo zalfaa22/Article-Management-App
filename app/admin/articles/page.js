@@ -1,68 +1,6 @@
-// // pages/admin/articles.js
-// import { useSession, getSession } from 'next-auth/react';
-// import { useEffect, useState } from 'react';
-// import axios from 'axios';
-// import DataTable from 'react-data-table-component';
-
-// export default function ArticlesPage() {
-//   const { data: session, status } = useSession();
-//   const [articles, setArticles] = useState([]);
-
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       const response = await axios.get('http://103.164.54.252:8000/api/articles', {
-//         headers: {
-//           Authorization: `Bearer ${session?.accessToken}`,
-//         },
-//       });
-//       setArticles(response.data);
-//     };
-
-//     if (status === 'authenticated') {
-//       fetchData();
-//     }
-//   }, [session, status]);
-
-//   const columns = [
-//     {
-//       name: 'Title',
-//       selector: 'title',
-//       sortable: true,
-//     },
-//     {
-//       name: 'Author',
-//       selector: 'author',
-//       sortable: true,
-//     },
-//   ];
-
-//   return (
-//     <div className="container mx-auto py-8">
-//       <h1 className="text-3xl font-semibold mb-4">Article Management</h1>
-//       <DataTable columns={columns} data={articles} pagination />
-//     </div>
-//   );
-// }
-
-// export async function getServerSideProps(context) {
-//   const session = await getSession(context);
-//   if (!session) {
-//     return {
-//       redirect: {
-//         destination: '/login',
-//         permanent: false,
-//       },
-//     };
-//   }
-//   return {
-//     props: { session },
-//   };
-// }
-
-
 "use client";
 import React, { useState, useEffect } from 'react';
-import Sidebar from '@/app/components/sidebar';
+import Sidebar from '../../components/Sidebar';
 import DataTable from 'react-data-table-component';
 
 export default function ArticlesPage() {

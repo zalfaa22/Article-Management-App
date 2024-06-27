@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Sidebar from "@/app/components/sidebar";
+import Sidebar from "../../components/Sidebar";
 import DataTable from "react-data-table-component";
 
 export default function ProfilePage() {
