@@ -1,40 +1,6 @@
-// "use client";
-// import { useEffect, useState } from 'react';
-
-// const fetchUsers = async () => {
-//   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-//   const response = await fetch(`${baseUrl}/api/users`);
-//   const data = await response.json();
-//   return data;
-// };
-
-// export default function UsersPage() {
-//   const [users, setUsers] = useState([]);
-
-//   useEffect(() => {
-//     const getUsers = async () => {
-//       const usersData = await fetchUsers();
-//       setUsers(usersData);
-//     };
-
-//     getUsers();
-//   }, []);
-
-//   return (
-//     <div>
-//       <h1>Users</h1>
-//       <ul>
-//         {users.map((user) => (
-//           <li key={user.id}>{user.username}</li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// }
-
 "use client"
 import React, { useState, useEffect } from 'react';
-import Sidebar from '@/app/components/sidebar';
+import Sidebar from '../../components/Sidebar';
 import DataTable from 'react-data-table-component';
 
 export default function UsersPage() {
